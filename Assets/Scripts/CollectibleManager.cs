@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class CollectibleManager : MonoBehaviour
+public class Collectible : MonoBehaviour
 {
+    public static event Action OnCollected;
+    public static int total;
+
+    void Awake() => total++;
+
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("aaaa");
         if (other.CompareTag("Player"))
         {
-            Debug.Log("fdp");
+            OnCollected?.Invoke();
             Destroy(gameObject);
         }
     }
